@@ -1,4 +1,4 @@
-default: install
+default: deps
 
 lint:
 	rubocop --fail-fast
