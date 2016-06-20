@@ -13,12 +13,12 @@ describe 'vcloud_router_creator_microservice' do
   describe '#create_router' do
     let!(:data) do
       { router_type:     'vcloud',
-        datacenter_name: 'r3-acidre',
-        datacenter_username: 'acidre@r3labs-development',
+        datacenter_name: 'my-datacenter',
+        datacenter_username: 'user@org',
         datacenter_password: 'test',
-        client_name:     'r3labs-development',
+        client_name:     'group',
         vse_url:          'https://vse-creator-service.ernest.io',
-        router_name:     'test' }
+        router_name:     'my-router' }
     end
 
     describe 'when remote server is not available' do
