@@ -16,7 +16,7 @@ def create_router(data)
   'router.create.vcloud.done'
 rescue StandardError => e
   puts e
-  data['error'] = { code: 0, message: e.to_s }
+  data[:error] = { code: 0, message: e.to_s }
   'router.create.vcloud.error'
 end
 
