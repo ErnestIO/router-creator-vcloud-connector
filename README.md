@@ -4,8 +4,8 @@ VCloud interfacte for creator routers
 
 ## Build status
 
-* master:  [![CircleCI](https://circleci.com/gh/ErnestIO/router-creator-vcloud-connector/tree/master.svg?style=svg)](https://circleci.com/gh/ErnestIO/router-creator-vcloud-connector/tree/master)
-* develop: [![CircleCI](https://circleci.com/gh/ErnestIO/router-creator-vcloud-connector/tree/develop.svg?style=svg)](https://circleci.com/gh/ErnestIO/router-creator-vcloud-connector/tree/develop)
+* master:  [![CircleCI](https://circleci.com/gh/ernestio/router-creator-vcloud-connector/tree/master.svg?style=svg)](https://circleci.com/gh/ernestio/router-creator-vcloud-connector/tree/master)
+* develop: [![CircleCI](https://circleci.com/gh/ernestio/router-creator-vcloud-connector/tree/develop.svg?style=svg)](https://circleci.com/gh/ernestio/router-creator-vcloud-connector/tree/develop)
 
 ## Installation
 
