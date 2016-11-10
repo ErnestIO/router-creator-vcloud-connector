@@ -42,7 +42,7 @@ def https_request(url, req)
   http.read_timeout = 720
   http.use_ssl = true
   res = http.start { |h| h.request(req) }
-  fail res.message if res.code != '200'
+  raise res.message if res.code != '200'
   res.body
 end
 
@@ -55,7 +55,7 @@ unless defined? @@test
     begin
       NATS.start(servers: [ENV['NATS_URI']]) do
         NATS.subscribe 'router.create.vcloud' do |msg, _rply, sub|
-          @data       = { id: SecureRandom.uuid, type: sub }
+          @data = { id: SecureRandom.uuid, type: sub }
           @data.merge! JSON.parse(msg, symbolize_names: true)
 
           @data[:type] = create_router(@data)
