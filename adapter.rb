@@ -11,17 +11,12 @@ require 'net/https'
 require 'json'
 
 def create_router(data)
-  return false unless retry?(data)
-  data[:router_ip] = vse_create_router(data)
+  data[:ip] = vse_create_router(data)
   'router.create.vcloud.done'
 rescue StandardError => e
   puts e
   data[:error] = { code: 0, message: e.to_s }
   'router.create.vcloud.error'
-end
-
-def retry?(data)
-  data[:router_type] == 'vcloud' && data.values_at(:datacenter_name, :client_name).compact.length == 2
 end
 
 def vse_create_router(data)
@@ -37,7 +32,7 @@ def prepare_request(url, data)
   req.basic_auth data[:datacenter_username], data[:datacenter_password]
   req.body = { 'vdc-name'     => data[:datacenter_name],
                'org-name'     => credentials.last,
-               'router-name'  => data[:router_name],
+               'router-name'  => data[:name],
                'external-network' => data[:external_network] }.to_json
   req
 end

@@ -18,7 +18,7 @@ describe 'vcloud_router_creator_microservice' do
         datacenter_password: 'test',
         client_name:     'group',
         vse_url:          'https://vse-creator-service.ernest.io',
-        router_name:     'my-router' }
+        name:     'my-router' }
     end
 
     describe 'when remote server is not available' do
