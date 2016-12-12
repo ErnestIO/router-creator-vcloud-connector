@@ -9,6 +9,7 @@ require 'nats/client'
 require 'net/http'
 require 'net/https'
 require 'json'
+require 'base64'
 
 def create_router(data)
   data[:ip] = vse_create_router(data)
@@ -50,6 +51,46 @@ def path
   'router'
 end
 
+def decrypt
+
+  data = "Very, very confidential data"
+
+  cipher = OpenSSL::Cipher::AES.new(256, :CFB)
+  cipher.encrypt
+  key = cipher.random_key
+  iv = cipher.random_iv
+
+  encrypted = cipher.update(data) + cipher.final
+  encrypted = Base64.decode64("b9a97c10635ecfa527baafaceb2372ad6255cbf649262b94")
+  decipher = OpenSSL::Cipher::AES.new(256, :CFB)
+  decipher.decrypt
+  decipher.key = "mMYlPIvI11z20H1BnBmB223355667788"
+  # decipher.iv = iv
+  decipher.iv = "0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f"
+
+  plain = decipher.update(encrypted) + decipher.final
+
+  puts data == plain #=> true
+
+=begin
+  data = Base64.encode64("b9a97c10635ecfa527baafaceb2372ad6255cbf649262b94")
+
+  aes = OpenSSL::Cipher.new("AES-256-CFB")
+  aes.decrypt
+  aes.key = "mMYlPIvI11z20H1BnBmB223355667788"
+  aes.iv = "0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f"
+  x = aes.update(data) + aes.final
+  puts x
+=end 
+  require 'pry'; binding.pry
+
+
+  puts 'upsuu'
+end
+
+decrypt
+
+=begin
 unless defined? @@test
   loop do
     begin
@@ -68,3 +109,4 @@ unless defined? @@test
     end
   end
 end
+=end
