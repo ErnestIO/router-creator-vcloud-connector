@@ -14,8 +14,8 @@ describe 'vcloud_router_creator_microservice' do
     let!(:data) do
       { router_type:     'vcloud',
         datacenter_name: 'my-datacenter',
-        datacenter_username: 'user@org',
-        datacenter_password: 'test',
+        datacenter_username: 'Sa8DjqBt60Mt9QbIDzWRH29hchm/tR1PJFY3jWn5XiE=',
+        datacenter_password: 'x5s8ecbnCwfbks4+Uoo9tf+Mb5Aa9Op3fXxoPQ==',
         client_name:     'group',
         vse_url:          'https://vse-creator-service.ernest.io',
         name:     'my-router' }
@@ -23,7 +23,7 @@ describe 'vcloud_router_creator_microservice' do
 
     describe 'when remote server is not available' do
       it 'should call vse-creator api' do
-        VCR.use_cassette(:remote_not_available) do
+        VCR.use_cassette(:remote_not_available, record: :all) do
           expect(create_router(data)).to eq 'router.create.vcloud.error'
         end
       end
