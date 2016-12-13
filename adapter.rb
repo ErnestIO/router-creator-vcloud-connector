@@ -10,10 +10,6 @@ require 'net/http'
 require 'net/https'
 require 'json'
 
-$saltlen = 8
-$keylen = 32
-$iterations = 10002
-
 def create_router(data)
   data[:ip] = vse_create_router(data)
   'router.create.vcloud.done'
@@ -57,19 +53,22 @@ def path
 end
 
 def decrypt(encrypted)
+  saltlen = 8
+  keylen = 32
+  iterations = 10_002
   password = ENV['ERNEST_CRYPTO_KEY']
+
   data = Base64.decode64(encrypted)
-  salt = data[0,$saltlen]
-  data = data[$saltlen, data.size]
-  cipher = OpenSSL::Cipher::Cipher.new("AES-256-CFB")
-  key_iv = OpenSSL::PKCS5.pbkdf2_hmac(password, salt, $iterations, $keylen+cipher.iv_len, "md5")
+  salt = data[0, saltlen]
+  data = data[saltlen, data.size]
+  cipher = OpenSSL::Cipher::Cipher.new('AES-256-CFB')
+  key_iv = OpenSSL::PKCS5.pbkdf2_hmac(password, salt, iterations, keylen + cipher.iv_len, 'md5')
   cipher.key = key_iv[0, cipher.key_len]
   cipher.iv = key_iv[cipher.key_len, cipher.iv_len]
   cipher.decrypt
   data = cipher.update(data) + cipher.final
   data[cipher.iv_len, data.size]
 end
-
 
 unless defined? @@test
   loop do
