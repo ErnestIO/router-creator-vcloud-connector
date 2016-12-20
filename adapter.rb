@@ -9,6 +9,7 @@ require 'nats/client'
 require 'net/http'
 require 'net/https'
 require 'json'
+require 'base64'
 
 def create_router(data)
   data[:ip] = vse_create_router(data)
